@@ -3,11 +3,11 @@ package main
 import "math/rand"
 
 type Account struct {
-	ID        int
-	FirstName string
-	LastName  string
-	Number    int64
-	Balance   int64
+	ID        int    `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Number    int64  `json:"number"`
+	Balance   int64  `json:"balance"`
 }
 
 // In Go, if the only type specified paramaeter is the last one, then it will apply to the rest of the parameters
