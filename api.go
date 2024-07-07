@@ -7,17 +7,19 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-) 
+)
 
 type APIServer struct {
 	listenAddr string
+	store      Storage
 }
 
 // Returning a pointer into our APIServer struct
-func NewAPIServer(listenAddr string) *APIServer {
+func NewAPIServer(listenAddr string, store Storage) *APIServer {
 
 	return &APIServer{
 		listenAddr: listenAddr,
+		store:      store,
 	}
 
 }
