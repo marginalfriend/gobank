@@ -94,10 +94,10 @@ func (s *PostgresStore) GetAccountByID(id int) (*Account, error) {
 }
 
 func (s *PostgresStore) GetAccounts() ([]*Account, error) {
-	rows, err := s.db.Query(`SELECT * FROM accounts;`)
+	rows, err := s.db.Query(`SELECT * FROM accounts`)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	accounts := []*Account{}
@@ -118,8 +118,10 @@ func (s *PostgresStore) GetAccounts() ([]*Account, error) {
 			return nil, err
 		}
 
+		fmt.Printf("%v", account)
 		accounts = append(accounts, account)
 	}
+
 
 	return accounts, nil
 }

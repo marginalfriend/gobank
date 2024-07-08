@@ -51,9 +51,21 @@ func (s *APIServer) handleAccount(w http.ResponseWriter, r *http.Request) error 
 }
 
 func (s *APIServer) handleGetAccount(w http.ResponseWriter, r *http.Request) error {
-	account := NewAccount("Marginal", "Friend")
+	accounts, err := s.store.GetAccounts()
 
-	return WriteJSON(w, http.StatusOK, account)
+	if err != nil {
+		return err
+	}
+
+	return WriteJSON(w, http.StatusOK, accounts)
+}
+func (s *APIServer) handleGetAccountByID(w http.ResponseWriter, r *http.Request) error {
+	id := mux.Vars(r)["id"]
+
+	// account, err := s.store.GetAccountByID(id)
+	fmt.Println(id)
+
+	return WriteJSON(w, http.StatusOK, &Account{})
 }
 
 func (s *APIServer) handleCreateAccount(w http.ResponseWriter, r *http.Request) error {
