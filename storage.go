@@ -103,16 +103,7 @@ func (s *PostgresStore) GetAccounts() ([]*Account, error) {
 	accounts := []*Account{}
 
 	for rows.Next() {
-		account := new(Account)
-		
-		err := rows.Scan(
-			&account.ID, 
-			&account.FirstName, 
-			&account.LastName, 
-			&account.Number, 
-			&account.Balance, 
-			&account.CreatedAt,
-			)
+		account, err := scanIntoAccount(rows)
 
 		if err != nil {
 			return nil, err
@@ -122,6 +113,24 @@ func (s *PostgresStore) GetAccounts() ([]*Account, error) {
 		accounts = append(accounts, account)
 	}
 
-
 	return accounts, nil
+}
+
+func scanIntoAccount(rows *sql.Rows) (*Account, error) {
+	account := new(Account)
+
+	err := rows.Scan(
+		&account.ID,
+		&account.FirstName,
+		&account.LastName,
+		&account.Number,
+		&account.Balance,
+		&account.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return account, err
 }
